@@ -1,127 +1,136 @@
-# AmbedkarGPT-Intern-Assignment
-required to build a simple command-line Q&amp;A system. The system will ingest the text from a provided short speech by Dr. B.R. Ambedkar and answer questions based solely on that content.
-AmbedkarGPT-Intern-Task
+# AmbedkarGPT - AI Intern Task (Windows Version)
 
-AI Intern Hiring Assignment (Phase 1) Kalpit Pvt Ltd, UK
+AmbedkarGPT is a local Retrieval-Augmented Generation (RAG) system designed to answer questions based on the speeches of Dr. B.R. Ambedkar. This project was developed as part of the Phase 1 Core Skills Evaluation for Kalpit Pvt Ltd.
 
-📋 Project Overview
+The system runs entirely offline on your Windows machine using Python 3.11, ChromaDB, and Ollama (Mistral).
 
-AmbedkarGPT is a command-line Q&A system developed as part of the Core Skills Evaluation for the AI Intern position.
+📂 Project Structure
 
-The system implements a Retrieval-Augmented Generation (RAG) pipeline to ingest a speech by Dr. B.R. Ambedkar ("Annihilation of Caste") and answers user questions based solely on that content, ensuring accurate and context-aware responses without hallucination.
+main1.py: The core Python script containing the RAG pipeline logic.
 
-🛠️ Technical Architecture
+speech.txt: The source text file containing the speech excerpt.
 
-Per the assignment requirements, the solution is built using the following stack:
+requirements.txt: A list of all Python dependencies.
 
-Language: Python 3.8+ (Developed & Tested on Python 3.11)
+chroma_db/: (Generated automatically) Local directory for storing vector embeddings.
 
-Framework: LangChain (for RAG orchestration)
+🛠️ Tech Stack
 
-Vector Store: ChromaDB (Local, open-source)
+Language: Python 3.11 (Windows)
 
-Embeddings: HuggingFaceEmbeddings (Model: sentence-transformers/all-MiniLM-L6-v2)
+Orchestration: LangChain
 
-LLM: Ollama running mistral (7B parameter model)
+LLM: Ollama (Model: mistral)
 
-Workflow
+Embeddings: HuggingFace (sentence-transformers/all-MiniLM-L6-v2)
 
-Load: Ingests text from speech.txt.
+Vector Database: ChromaDB
 
-Split: Chunks text into 500-character segments using CharacterTextSplitter.
+📦 Requirements File Content
 
-Embed: Generates vector embeddings using HuggingFace models.
+Create a file named requirements.txt and paste the following lines into it:
 
-Store: Persists vectors locally in chroma_db.
+langchain==0.3.0 langchain-community==0.3.0 langchain-ollama==0.2.0 langchain-huggingface==0.1.0 langchain-chroma==0.1.4 chromadb sentence-transformers 
 
-Retrieve: Queries the vector store for relevant context.
-
-Answer: Passes context + question to Mistral 7B for the final answer.
-
-📂 Repository Structure
-
-AmbedkarGPT-Intern-Task/
-│
-├── main.py              # Core script containing the RAG pipeline
-├── speech.txt           # The provided source text (Dr. Ambedkar's speech)
-├── requirements.txt     # List of all dependencies
-├── README.md            # Documentation (This file)
-└── chroma_db/           # (Auto-generated) Local vector store directory
-
-
-⚙️ Setup & Execution
+🚀 Setup Instructions (Windows)
 
 1. Prerequisites
 
-Python 3.8+ installed.
+Install Python 3.11: Ensure it is added to your PATH.
 
-Ollama installed and running.
+Install Ollama: Download from ollama.com.
 
-2. Model Setup
+2. Model Setup (Crucial)
 
-Open your terminal/command prompt and ensure the Mistral model is pulled:
+Open a new Command Prompt window and run the following commands to set up the AI "brain":
+
+ollama serve
+
+
+(Keep this window open). Then, in a new window:
 
 ollama pull mistral
 
 
-Ensure the Ollama server is running (ollama serve).
+3. Project Installation
 
-3. Installation
+Navigate to your project folder in Command Prompt and run:
 
-Clone this repository and install the required dependencies:
-
-git clone [https://github.com/](https://github.com/)<your-username>/AmbedkarGPT-Intern-Task.git
-cd AmbedkarGPT-Intern-Task
-
-# Create virtual environment (Recommended)
 python -m venv venv
-# Windows:
 venv\Scripts\activate
-# Mac/Linux:
-source venv/bin/activate
-
-# Install dependencies
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 
 
-4. Running the Application
+💻 Usage
 
-python main.py
+Run the main script to start the interactive Q&A system:
 
-
-🧪 Sample Interaction
-
---- AmbedkarGPT: RAG Prototype Initialization ---
-
-[1/5] Loading speech.txt...
-      ✅ File loaded successfully.
-[2/5] Splitting text into chunks...
-      ✅ Created 5 chunks.
-[3/5] Creating embeddings and storing in ChromaDB...
-      ✅ Vector store ready.
-[4/5] Connecting to Ollama (mistral)...
-[5/5] Building Retrieval Pipeline...
-
-✅ SYSTEM READY! 
-
-👉 Your Question: What is the real enemy?
-   Thinking...
-
-------------------------------------------------------------
-🤖 Answer: According to the text, the real enemy is the belief in the shastras.
-------------------------------------------------------------
+python main1.py
 
 
-📦 Deliverables Checklist
+🧪 Example Queries & Outputs
 
-[x] main.py: Well-commented Python code implementing the RAG pipeline.
+Here are actual outputs generated by the system during testing.
 
-[x] requirements.txt: All dependencies listed.
+Query 1: Understanding the Core Theme
 
-[x] README.md: Detailed setup and execution instructions.
+Make a query: what is the speech.txt about
+Thinking...
 
-[x] speech.txt: The provided excerpt from "Annihilation of Caste".
+Answer:
+The provided text appears to be a quote from Dr. B.R. Ambedkar's speech, discussing the issue of caste in India and emphasizing that the problem lies not only in social reform but also in challenging the authority of the scriptures (shastras) that uphold the caste system. The solution, according to this excerpt, is to question and overthrow the belief in the sanctity of these shastras.
 
-👤 Author
 
-Murahari Chavali AI Intern Applicant
+Query 2: Specific Entity Retrieval (Negative Case)
+
+Make a query: who is Ambedkar for this speech
+Thinking...
+
+Answer:
+I cannot find the answer to your question "who is Ambedkar" in the provided text. The given context only discusses Dr. B.R. Ambedkar's speeches on caste and the shastras, but there is no information provided about his identity or role within this specific text excerpt.
+
+
+Query 3: Specific Entity Retrieval (Positive Case)
+
+Make a query: who is Dr. B.R. Ambedkar for this speech.txt
+Thinking...
+
+Answer:
+Dr. B.R. Ambedkar is the author of the speech mentioned in the context provided.
+
+
+Query 4: Direct Content Extraction
+
+Make a query: What is the real remedy?
+Thinking...
+
+Answer:
+The real remedy is to destroy the belief in the sanctity of the shastras.
+
+
+Exiting the System
+
+Make a query: quit
+Exiting...
+
+
+🧠 Code Logic Overview
+
+The core logic resides in main1.py. It follows this pipeline:
+
+Load: Reads speech.txt.
+
+Split: Breaks text into chunks (1000 chars).
+
+Embed: Converts text to numbers using all-MiniLM-L6-v2.
+
+Store: Saves vectors to ./chroma_db.
+
+Retrieve: Finds top 3 matching chunks for your question.
+
+Answer: Sends context + question to Mistral via Ollama.
+
+📝 License
+
+This project is created for an assignment submission. The code is open for educational purposes.
